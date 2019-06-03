@@ -16,7 +16,13 @@ Open `http://localhost:5000`
 
 ## Hyperdom App
 
-An object with a `render()` method is a valid hyperdom component (we call top level component an app). The one in your project - `./browser/app.jsx` - looks like this:
+An object with a `render()` method is a valid hyperdom component (we call top level component an app). The one in your project looks like this:
+
+<!-- tabs:start -->
+
+#### ** Javascript **
+
+_./browsers/app.jsx_
 
 ```jsx
 const hyperdom = require("hyperdom");
@@ -29,7 +35,7 @@ module.exports = class App {
 }
 ```
 
-It's mounted into the dom in `./browser/index.js`:
+It's mounted into the DOM in _./browser/index.js_:
 
 ```js
 const hyperdom = require("hyperdom");
@@ -39,6 +45,34 @@ hyperdom.append(document.body, new App());
 ```
 
 <iframe src="https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKAdAIwIZplATgYyVHwHsA7AFxkqRGAB0yACJ-kAB13hgrjcSYBtRixZtqANzYAaEaLYALAJ7sYuACYkAtmzkBdRgF8Qh6SAhl1MAB4oFFLVCIhSlahVoAeAIQARAPIAwgAqAJoACgCiTPaOAHyMnrFQCcxMSTAY6qmi6RQQFLBx4RgEOEwAyhiWaCTWngD0-YUwOaKeWjwYTPgKpXA8ALxsAKrBAGIAtAAcbEwNbY0KmdmMcp616kptLJ7qEBJMEOrDIBjs7GxxjfsSqXK7cPi4EOwUTHAEp5_4DWi4JAA7gNcA0LFZbAArPgga4NJ4vN6LP4kLapJYOFKMExmdgYfAAawwAHMYChoeRnK4qDREHQ5GwyBhOvxWCBlKoNNpJqSKJM4BRSlR1JMLAUZAyQBI1HAIORWWwAIwoAAMqolaTYVgRr3y8qQbIAEio1JotExfDAtCQmAApCoasQgLQYCwK8yWGx2TGOtk6t4wgQMNJOgVC914spQI6e2zJJiTSYkVRkX1OtAAV2g6gjpXw5Uz2ZjEO9jl0aVMkqsKasZHwEHgrODuTYmGwUEmnG4fI5pu07qgGCoArTbN7XJ0BrYg-HFHLLErmpAVgklpr1HrjYNzfkHDzOEmmcssFwA6H8DnIDki6dBJgSkBJA0gaEBjIhmxphAPz-AOBagac52HJOBrCpcgaQ8OlXAFGITQnJhBiYLgAEcsy4AAKRR4LNNgAEoAG5GBg95gGWKAoBIQxEOQmA0IgTC2BQeEKCUWA4BQfA4BhQi1jIa11AzWAUBsdgn14Gj8EHbimAAQQuJgdy4T1cCYDC8MUh5aIoDNcGYJJFR6aS4EGMicEoww4kNcybTAAFzWNTkzW8JZFTaD930_Mwf3-IEQTBWMQPAtxaRcchYPHM0aNQ9CYCw9kcP7EBeLrcL3nk9horo2L4uYoD8KI1MyEi7QUCA6h1AwzR8AzTpKHQVElGkJgyBgQE5IudSUpxb8CF_PyAIFNj4E47jgsg2hEGJSjMCgDDNiUDSdzACDJjAZloCUAQ2GsqBpXyfBugAORgDMYBkOSXgwKBmrgao4H5NQIDAQqPMYOwbM0tIqGsPkKFwe6VtwLQBAzC41EOgZXs_QxDCAA" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+#### ** Typescript **
+
+_./browsers/app.tsx_
+
+```tsx
+import * as hyperdom from "hyperdom";
+import { hello } from "./styles.css";
+
+export default class App extends hyperdom.RenderComponent {
+  public render() {
+    return <h1 className={hello}>Hello from Hyperdom!</h1>;
+  }
+}
+```
+
+It's mounted into the DOM in _./browser/index.js_:
+
+```ts
+import * as hyperdom from "hyperdom";
+import App from "./app";
+
+hyperdom.append(document.body, new App());
+```
+
+<iframe src="https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKCA7AJjAHgOgBYAuAtlEqAMYD2qBMNSIAPISQHwA6qnzMAhuhy4FGBCAVisACrwBO5GFAAEAZV4YARpSyMA9KPExB7YURgFei8nllwzAXnYgAqgBUAYgFoAHI8U7Bunh8ApzcmugAnkbC6BAAbooQ6A4gvAAOaY6surFxRkKMcOQyEGkEinByKZXkOuoylADutjI6aJi4BHBZukUlZQF1lJH5gcRQgiAAvgA0IGm85ADWvADmMDgAVnDUZCBUNHQEDMCcioqOqLymjogXIOsEHnDmMrToHmhiHl2OM2f3OIwGRwCDUW73ACMOAADLC_gDHJg-qVROCkPcEahzo4iLw0BDHO1sPhxlicSAUWVuhjTtjzvcXrICIT5rJ5EpibgWEoPB5KGk6OSGY51ABXaDoVkLOQKRTiyWJDAknmOAGzREgTCC5WocgQeAQukM-54CKCmToShEVlwgBM0JhwopBHN8GKqNZAGYcABWHCQtX0jX0pEwOIAERgOsweoNNLuxpFbNlUA84owsBkrKgvFoLyD5xDFKWMAijUoloTigA2gBdThTaZzGp1BrNYE6dJpHBdLB7A60eiIEAQIhpSvlABUil4cEUZotVqIijADRXjkXwOXjgA3JwxxO3opgAuFFBKIopqv1_ccDoXhFYHAcOQ4DT91xUNgj-VMGBeDFKBynIXN30UABBDJFGwId0HnLdLWtHAACU6EwGQAGFrQnb8aBPAE0jFdQoAgchFBkdDgQACgASgI-lzkoggxRkbFmEhSwwLgAA5a4YDsYAgigC8plYAAJc9LzXa1FHEt0kKIABCQJIVYT8i0bThm0pOQ2yaFo2mVToEGQfZqCHY4R0PSdFBnOcFwU5cb1kzcnOtPcD3HWyoLSFyNxAe9u08r9EOXHBu3Q6irXIMVTBoHBwgiGZFG_RpIIyOjaM_HTW3qAzO0fZ9X3fAcLKOBhEFWC91F4KBqKS-ikzACyPAAohoAiO5HEkqAgVEcgLB4mAxRgP5IJKOqUrgNQ4GeYEIDAT8plCVB8CkhjzloLAngIGRZpamQiDuMUMmBQbbGW7TZhALoDkgVYth2VAysOYcQCTRwqHHaBgQAeTKMFUGrJMKR2Vj5AAWXSCE9tG_5GPuUj1AhGtHHgAA2cakQ8kA6wRk1HG2LBWUoxYWRAAnk2JtxycrCJWTC5Diede4GkoAgIwgbMMUcGpCyvLSXqmEWgA" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<!-- tabs:end -->
 
 ## State Management
 
