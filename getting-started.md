@@ -86,10 +86,15 @@ Hyperdom rerenders immediately after each UI event your app handles. There are t
 
 ## Event Handlers
 
-Event handlers run some code when a user clicks on something. Let's modify our `App` code in `./browser/app.jsx`:
+Event handlers run some code when a user clicks on something. Let's modify our `App` class:
+
+<!-- tabs:start -->
+
+#### ** Javascript **
+
+_./browsers/app.jsx_
 
 ```jsx
-
 module.exports = class App {
   renderHeader() {
     if (!this.hideGreeting) {
@@ -112,7 +117,40 @@ module.exports = class App {
 
 <iframe src="https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKAdAIwIZplATgYyVHwHsA7AFxkqRGAB0yACJ-kAB13hgrjcSYBtRixZtqANzYAaEaLYALAJ7sYuACYkAtmzkBdRgF8Qh6SAhl1MAB4oFFLVCIhSlahVoAeAIQARAPIAwgAqAJoACgCiTPaOAHyMnrFQCcxMSTAY6qmi6RQQFLBx4RgEOEwAyhiWaCTWngD0-YUwOaKeWjwYTPgKpXA8ALxsAKrBAGIAtAAcbEwNbY0KmdmMcp616kptLJ7qEBJMEOrDIBjs7GxxjfsSqXK7cPi4EOwUTHAEp5_4DWi4JAA7gNcA0LFZbAArPgga4NJ4vN6LP4kLapJYOFKMExmdgYfAAawwAHMYChoeRnK4qDREHQ5GwyBhOvxWCBlKoNNpJqSKJM4BRSlR1JMYBJ3DDZGk2OLcHAIORWWwAIwoAAM6pkDJAVgRr3yiqQbIAEio1JotExfDAtCQmAApCpa6UgLQYCxK8yWGx2THOsQgPVvGECBhpAMCoWevFlKBHb22ZJMSaTEiqMj--QgNAAV2g6mjpXw5Vz-fjEN9jl0aVM2qs6asZHwEHgrLDuTYmGwUEmnG4fI55u0nqgGCoAszAcHXJ0RrYo_HFGrLFrLqsEmtDeozdbRvbWZjxZ7ucssFwI7H8CXIDkq4DBJgSkBJA0IaEBjIhmxpkDBD-AOBNQGnOdhyTgawqXIGkPDpVwBRiM0ZyYQYmC4ABHPMuAACkURCLTYABKABuRg4PeYBligKASEMZDUJgDCIGwtgUHhCglFgOAUHwOAYWItYyFtdQc1gFAbHYF9eDo_BR14pgAEELiYfcuG9XBjRWNQsII5SHiOMAmCw7wKAUCAuNMqwAHEuB4CxiR0_dci4Cgc1wZg9gOHZcnSBRlR6WS4EGCicGoww4g0qi7TAAFLVNTkLW8JZlS83JPG6BQuDAQYAHIAGJsqYcgZIgQkgu05C4iYEyzLsY4YGsmBbLIYk6IoXAcxgMKADkbAoRoMBS9IGluLzaJwAZdPDURnNc9z2DiLqgSq5YyBQNbGnmvSvxrASWFUqxcEMhy9Jmtz0jdCxBuAaquP2tQNKyLSCO21KGgusg2m27acV_X5_iBEEwQTMDILcWkXHIeDpwtOj0MwmAcPZPDhxAfim0h95FPYWGGPhxHWJAwiSIzMhoe0FAQOodQsM0fAc06Sh0FRJRpCYMgYEBBSLm0tGfp-f8AaAgUOPgbjeNB6DaEQYlqMwKAsM2JRjrSMAoMmMBmWgJQBDYCLxXyfBuh6jqZAUl4MCgVm4GqOB-TUCAwGJ7bGDsEK7X3KhrD5NqbdV3AtAEHMLjUQ2Bid79DEMIA" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-When `Next` link is clicked, the `onclick` handler is executed. After that, hyperdom re-renders (that is, calls the `render()` method, compares the result with the current dom and updates it if needed).
+#### ** Typescript **
+
+_./browsers/app.tsx_
+
+```tsx
+export default class App extends hyperdom.RenderComponent {
+  private showGreeting = true;
+
+  renderHeader() {
+    if (this.showGreeting) {
+      return (
+        <div>
+          <h1 className={hello}>Hello from Hyperdom!</h1>
+          <a href="#" onclick={() => (this.showGreeting = false)}>
+            Next
+          </a>
+        </div>
+      );
+    } else {
+      return <p>Now then...</p>;
+    }
+  }
+
+  render() {
+    return <main>{this.renderHeader()}</main>;
+  }
+}
+```
+
+<iframe src="https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKCA7AJjAHgOgBYAuAtlEqAMYD2qBMNSIAPISQHwA6qnzMAhuhy4FGBCAVisACrwBO5GFAAEAZV4YARpSyMA9KPExB7YURgFei8nllwzAXnYgAqgBUAYgFoAHI8U7Bunh8ApzcmugAnkbC6BAAbooQ6A4gvAAOaY6surFxRkKMcOQyEGkEinByKZXkOuoylADutjI6aJi4BHBZukUlZQF1lJH5gcRQgiAAvgA0IGm85ADWvADmMDgAVnDUZCBUNHQEDMCcioqOqLymjogXIOsEHnDmMrToHjBxR3AeXY4zM73b4yOAQai3e4ARhwAAY4QCgY5MH1SqIIUh7ojUOdHEReGhIY52th8ONsbiQKiyt1Macced7i9ZAQifNZPIlCTcCwlB4PJQ0nQKYzHOoAK7QdBshZyBSKCVSxIYUm8xxA2ZIkCYIUq1DkCDwSH0xn3PARIUydCUIhs-EAJhhsJFlIIFvgxTRbIAzDgAKw4KHqhmahnIr4AERgusw-sNtLuJtF7LlUA8EowsBkbKgvFoL2D51DlKWMAijUoVoTigA2gBdThTaZzGp1BrNGCtdJpHBdLB7A60eiIEAQIhpSvlABUil4cEU5st1qIijADRXjkXneXjgA3JwxxO3opgAuFFBKIopqv1_ccDoXhFYHAcOQ4LT91xUNgj-VMGBeHFKBynIXN30UABBDJFGwId0HnLcrRtHAACU6EwGQAGEbQnb8aBPIE0hKOI8xgCo8CaABxGQYDMNBVkUOxFAIGRxRgT8gRolUZAACWCTsAAoAEoCIZc4IDARQBIIPAIBfOAKMaajaNEVBVhEpNTRoghxRkHEBKBU1zkYXJBCMozmChSwwLgAA5a4YDsYAgigC8plYPjXMvNcbUUHj3SQogAEJAihMzzMZRgLDwGiwBSABiXxqFAiBlic4TGNYKSZLknAFKomi6LUxjV14KBbCE9zDIi85bNg6rzN0XhwsanRTIaxQhM_U1rwUWxRPM7TdJxRg0lYWymmYoJUBwWbdDG7rGSmDVQgZLiMIyzTFCGvTFEYfE0FYYAcpfdbOz4_hBMq3QDtQVhFuW1BHubKk5DbJoWjaFVOgQZB9moIdjhHQ9J0UGc5wXALlxvXzNyhm09wPcdQagtIYY3EB727RGv0Q5ccG7dCBOtchxVMGgcHCCIZkUb9GkgjJhK6zgXtbeoPs7B83WfV93wHAGjgYRBVgvdQyoEqmNKBMAAY8ACiGgCI7kcTzvlEcgLDqtiAUgkoyppuA1F-FoJM_R7OHwc9LyTWgsCeFijZlmQiDucUMk7DXbDNlnZhALoDkgVYth2VB-cOYcQCTRwqHHaBOwAeTKcFUGrLbHB2XT5AAWXSSEWLYwExPuKAIHUSEa0ceAADYdeRBGQDrQvTUcbYsDZGjFlZEAm-TVu3E7ysIjZPHkNbl17gaSgCAjCBs0xdO5ELK9Gx9qYpiAA" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<!-- tabs:end -->
+
+When "Next" link is clicked, the `onclick` handler is executed. After that, hyperdom re-renders (that is, calls the `render()` method, compares the result with the current DOM and updates it if needed).
 
 Read more about Events [here](api#event-handler-on-attributes)
 
